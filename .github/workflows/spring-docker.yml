@@ -30,6 +30,32 @@ jobs:
         echo "${{ secrets.DATABASE }}" >> ./application-database.yml
       shell: bash
 
+    ## create application-deploy.yml
+    - name: make application-deploy.yml
+      run: |
+        ## create application-deploy.yml
+        cd ./src/main/resources
+
+        # application-deploy.yaml 파일 생성
+        touch ./application-deploy.yml
+
+        # GitHub-Actions 에서 설정한 값을 application-database.yml 파일에 쓰기
+        echo "${{ secrets.SERVER_DEPLOY_YML }}" >> ./application-deploy.yml
+      shell: bash
+      
+    ## create secrets.yml
+    - name: make secrets.yml
+      run: |
+        ## create secrets.yml
+        cd ./src/main/resources
+
+        # application-deploy.yaml 파일 생성
+        touch ./secrets.yml
+
+        # GitHub-Actions 에서 설정한 값을 application-database.yml 파일에 쓰기
+        echo "${{ secrets.SERVER_SECRETS }}" >> ./secrets.yml
+      shell: bash
+      
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
       
