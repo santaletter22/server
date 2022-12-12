@@ -35,7 +35,7 @@ public class ReceiveController {
         responseBody.addProperty("size", size);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(responseBody);
+                .body(new Gson().toJson(responseBody));
     }
 
     @GetMapping("/user/letter/count")

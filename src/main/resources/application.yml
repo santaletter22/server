@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 spring:
   profiles:
     active: deploy
-=======
+
 tomcat:
-    uri-encoding: UTF-8
-    
-spring:
-    profiles:
-        include: database
->>>>>>> origin/main
+  uri-encoding: UTF-8
