@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+            rel="stylesheet" href="/templates/css/bootstrap.min.css">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>내가 쓴 편지</h2>
+    </div>
+
+    <div class="py-2">
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" class="form-control" value="테스트 제목입니다" th:value="${letter.title}" readonly>
+    </div>
+    <div class="py-2">
+        <label for="content">본문</label>
+        <input type="text" id="content" name="content" class="form-control" value="테스트 본문입니다" th:value="${letter.content}" readonly>
+    </div>
+    <div class="py-2">
+        <label for="receiverName">수신인</label>
+        <input type="text" id="receiverName" name="receiverName" class="form-control" value="수신인 이름" th:value="${letter.receiverName}" readonly>
+    </div>
+    <div class="py-2">
+        <label for="locked">잠금</label>
+        <input type="text" id="locked" name="locked" class="form-control" value="잠금" th:value="${letter.locked}" readonly>
+    </div>
+    <div class="py-2">
+        <label for="delivered">수신인</label>
+        <input type="text" id="delivered" name="delivered" class="form-control" value="발송 상태" th:value="${letter.delivered}" readonly>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='sendLetterMainPage.html'"
+                    th:onclick="|location.href='@{/user/my-letter/all}'|"
+                    type="button">돌아가기</button>
+        </div>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>

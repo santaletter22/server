@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+            rel="stylesheet" href="/templates/css/bootstrap.min.css">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>내가 쓴 편지 리스트</h2>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary float-end"
+                    onclick="location.href='/letterAddForm.html'"
+                    th:onclick="|location.href='@{/user/form/letter/add}'|"
+                    type="button">새 편지 쓰기</button>
+        </div>
+    </div>
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>제목</th>
+                <th>잠금</th>
+                <th>발송 현황</th>
+                <th>수신인</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="letter: ${sendLetterList}">
+                <td th:text="${letter.title}"></td>
+                <td th:text="${letter.locked}"></td>
+                <td th:text="${letter.delivered}"></td>
+                <td th:text="${letter.receiverName}"></td>
+                <td>
+                    <a th:href="@{/my-letter/{letterId}(letterId=${letter.id})}">
+                        <button class="w-auto btn btn-primary" type="button">
+                            확인하기
+                        </button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-primary"
+                    onclick="location.href='../../index.html'"
+                    th:onclick="|location.href='@{/}'|"
+                    type="button">메인 화면으로</button>
+        </div>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>
