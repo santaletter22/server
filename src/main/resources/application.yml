@@ -1,6 +1,6 @@
-tomcat:
-    uri-encoding: UTF-8
-    
 spring:
-    profiles:
-        include: database
+  profiles:
+    active: deploy
+
+tomcat:
+  uri-encoding: UTF-8

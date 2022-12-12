@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+    <link th:href="@{/css/bootstrap.min.css}"
+          rel="stylesheet" href="/templates/css/bootstrap.min.css">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>메인 화면입니다</h2>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-primary btn-lg"
+                    onclick="location.href='letter/send/sendLetterMainPage.html.html'"
+                    th:onclick="|location.href='@{/user/my-letter/all}'|"
+                    type="button">
+                내가 쓴 편지
+            </button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-primary btn-lg" type="button">
+                내게 온 편지
+            </button>
+        </div>
+    </div>
+</div> <!-- /container -->
+
+</body>
+</html>
