@@ -10,15 +10,15 @@ import java.util.List;
 @NoArgsConstructor
 public class ReceiveLetterListDto {
 
+    private Long id;
     private String sender;
     private String title;
-    private String content;
     private boolean locked;
 
     public ReceiveLetterListDto(Letter letter) {
+        this.id = letter.getId();
         this.sender = letter.getSender();
         this.title = letter.getTitle();
-        this.content = letter.getContent();
         this.locked = letter.isLocked();
     }
 }

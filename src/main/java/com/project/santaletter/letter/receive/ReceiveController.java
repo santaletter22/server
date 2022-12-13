@@ -51,28 +51,28 @@ public class ReceiveController {
         responseBody.addProperty("size", size);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(responseBody);
+                .body(new Gson().toJson(responseBody));
     }
 
     @GetMapping("/user/letter/{id}")
     public ResponseEntity getMyLetter(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                       @PathVariable(value = "id") Long letterId) {
-        User user = userService.findUser(principalDetails.getId());
+        Long userId = principalDetails.getId();
 
-        if (user.getTicket() <= 0) {
+        try {
+            ReceiveLetterDto receiveLetterDto = receiveService.findMyLetter(userId, letterId);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new Gson().toJson(receiveLetterDto));
+        } catch (IllegalAccessException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .build();
         }
 
-        ReceiveLetterDto receiveLetterDto = receiveService.findMyLetter(user, letterId);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(new Gson().toJson(receiveLetterDto));
     }
 
     @DeleteMapping("/user/letter/{id}")
     public ResponseEntity deleteMyLetter(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                       @PathVariable(value = "id") Long letterId) {
-        User user = userService.findUser(principalDetails.getId());
         receiveService.deleteLetter(letterId);
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -83,9 +83,7 @@ public class ReceiveController {
     public ResponseEntity getMyLetterPage(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                           @PathVariable int startId,
                                           @PathVariable int amount) {
-        User user = userService.findUser(principalDetails.getId());
-
-        List<Letter> pagedLetterList = receiveService.findMyLetterPage(startId, amount, user);
+        List<Letter> pagedLetterList = receiveService.findMyLetterPage(startId, amount, principalDetails.getId());
         List<ReceiveLetterListDto> responseList = pagedLetterList.stream()
                 .map(l -> new ReceiveLetterListDto(l))
                 .collect(Collectors.toList());

@@ -4,6 +4,7 @@ import com.project.santaletter.domain.Letter;
 import com.project.santaletter.domain.User;
 import com.project.santaletter.letter.LetterRepository;
 import com.project.santaletter.letter.receive.dto.ReceiveLetterDto;
+import com.project.santaletter.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ReceiveService {
 
+    private final UserService userService;
     private final LetterRepository letterRepository;
 
     /**
@@ -29,13 +31,18 @@ public class ReceiveService {
         return size;
     }
 
-    public ReceiveLetterDto findMyLetter(User user, Long letterId) {
+    public ReceiveLetterDto findMyLetter(Long userId, Long letterId) throws IllegalAccessException {
         Optional<Letter> letterOptional = letterRepository.findById(letterId);
         Letter letter = letterOptional.orElseThrow(
                 () -> new NoSuchElementException("no letter found for this letter id : " + letterId)
         );
 
+        User user = userService.findUser(userId);
+
         if(letter.isLocked()) {
+            if (user.getTicket() <= 0) {
+                throw new IllegalAccessException("티켓이 부족합니다");
+            }
             user.useTicket(1);
             letter.setLocked(false);
         }
@@ -44,7 +51,8 @@ public class ReceiveService {
         return receiveLetterDto;
     }
 
-    public List<Letter> findMyLetterPage(int startId, int amount, User user) {
+    public List<Letter> findMyLetterPage(int startId, int amount, Long userId) {
+        User user = userService.findUser(userId);
         List<Letter> receivedLetterList = letterRepository.findAllByReceiverPhoneAndDeleted(user.getPhone(), false);
 
         if (startId >= receivedLetterList.size()) {

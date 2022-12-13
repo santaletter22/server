@@ -50,7 +50,7 @@ public class Letter extends BaseEntity{
         this.senderUsername = senderUsername;
     }
 
-    public void delete() {
+    public void  delete() {
         this.deleted = true;
     }
 
