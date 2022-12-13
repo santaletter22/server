@@ -34,8 +34,7 @@ public class UserController {
     @PatchMapping("/user/ticket/{amount}")
     public ResponseEntity patchTicketAmount(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                             @PathVariable int amount) {
-        User user = userService.findUser(principalDetails.getId());
-        user.addTicket(amount);
+        userService.addTicketToUser(principalDetails.getId(), amount);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .build();

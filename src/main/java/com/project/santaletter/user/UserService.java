@@ -27,4 +27,9 @@ public class UserService {
 
         return userOptional.get();
     }
+
+    public void addTicketToUser(Long userId, int amount) {
+        User user = findUser(userId);
+        user.addTicket(amount);
+    }
 }
