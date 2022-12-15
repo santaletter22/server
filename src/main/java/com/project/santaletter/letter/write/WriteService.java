@@ -31,7 +31,6 @@ public class WriteService {
         }
 
         user.useTicket(1);
-
         try {
             String title = writeLetterReq.getTitle();
             String receiverPhone = cryptionService.encrypt(writeLetterReq.getReceiverPhone());
