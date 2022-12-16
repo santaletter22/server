@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
 public class ReceiveController {
 
     private final ReceiveService receiveService;
