@@ -3,7 +3,6 @@ package com.project.santaletter.letter.write;
 import com.project.santaletter.domain.Letter;
 import com.project.santaletter.domain.User;
 import com.project.santaletter.letter.LetterRepository;
-import com.project.santaletter.letter.write.dto.WriteLetterDto;
 import com.project.santaletter.letter.write.dto.WriteLetterReq;
 import com.project.santaletter.user.UserService;
 import com.project.santaletter.util.CryptionService;
