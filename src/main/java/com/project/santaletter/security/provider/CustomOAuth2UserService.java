@@ -69,6 +69,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                     .provider(oAuth2UserInfo.getProvider())
                     .providerId(oAuth2UserInfo.getProviderId())
                     .phone(cryptionService.encrypt(oAuth2UserInfo.getPhone()))
+                    .email(oAuth2UserInfo.getEmail())
                     .build();
             User savedEntity = userRepository.save(user);
             return savedEntity;
